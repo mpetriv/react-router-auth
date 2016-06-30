@@ -1,0 +1,10 @@
+.active {
+    font-weight: bold;
+    background-color: #ccc;
+}
+
+.pageContainer {
+    border-left: 6px solid red;
+    background-color: lightgrey;
+    padding: 10px 10px 10px 10px;
+}
