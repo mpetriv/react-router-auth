@@ -2,15 +2,15 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import { App } from '../../ui/layouts/app.jsx';
-import AuthContainer from '../../ui/layouts/authContainer.jsx';
+import { App } from '../../ui/layouts/App.jsx';
+import AuthContainer from '../../ui/layouts/AuthContainer.jsx';
 
-import { Index } from '../../ui/pages/index.jsx';
-import { About } from '../../ui/pages/about.jsx';
-import SignIn from '../../ui/pages/signin.jsx';
-import { Admin } from '../../ui/pages/admin.jsx';
-import { Profile } from '../../ui/pages/profile.jsx';
-import { NotFound } from '../../ui/pages/notFound.jsx';
+import { Index } from '../../ui/pages/Index.jsx';
+import { About } from '../../ui/pages/About.jsx';
+import SignIn from '../../ui/pages/SignIn.jsx';
+import { Admin } from '../../ui/pages/Admin.jsx';
+import { Profile } from '../../ui/pages/Profile.jsx';
+import { NotFound } from '../../ui/pages/NotFound.jsx';
 
 Meteor.startup( () => {
   render(

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Navigation } from '../components/navigation.jsx';
+import { Navigation } from '../components/Navigation.jsx';
 
 class AuthContainer extends Component {
 
