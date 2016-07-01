@@ -5,13 +5,9 @@ export default class Timer extends Component {
     super(props);
 
     this.difference = 0;
-    if(this.props.timer.started && this.props.timer.didUnmount){
-      this.difference = Math.round(((new Date()).getTime() - this.props.timer.unmountDate.getTime())/1000);
-    }
-    // correct resolve component state on page refresh
-    if(this.props.timer.started && !this.props.timer.didUnmount){
+    if(this.props.timer.started){
       this.difference = Math.round(((new Date()).getTime() - this.props.timer.startedAt.getTime())/1000);
-    }    
+    }        
     this.state = {
       secondsElapsed: this.props.timer.secondsElapsed + this.difference,
     };
@@ -28,14 +24,9 @@ export default class Timer extends Component {
   }
 
   componentWillUnmount() {    
-    this.unmountTimer();
-  }
-
-  unmountTimer(){
     clearInterval(this.interval);
-    Meteor.call('timer.unmount', this.props.timer._id, this.state.secondsElapsed);
   }
-  
+    
   toggleStarted() {
     if(!this.props.timer.started){
       this.interval = setInterval(this.tick.bind(this), 1000);

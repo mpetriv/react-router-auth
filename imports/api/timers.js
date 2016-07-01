@@ -26,9 +26,7 @@ Meteor.methods({
       owner: this.userId,
       secondsElapsed: 0,
       started: false,
-      startedAt: new Date(),
-      unmountDate: new Date(),
-      didUnmount: false
+      startedAt: new Date()
     });
   },
 
@@ -44,22 +42,10 @@ Meteor.methods({
     Timers.remove(timerId);
   },
 
-  'timer.unmount'(timerId, seconds) {
-    check(timerId, String);
-    check(seconds, Number);
-
-    Timers.update(timerId, { 
-    	$set: { 
-    		secondsElapsed: seconds,
-    		unmountDate: new Date(),
-        didUnmount: true
-    	} 
-    });
-  },
-
   'timer.setStarted'(timerId, setStarted, seconds) {
     check(timerId, String);
     check(setStarted, Boolean);
+    check(seconds, Number);
 
     const timer = Timers.findOne(timerId);
 
@@ -78,8 +64,7 @@ Meteor.methods({
       Timers.update(timerId, { 
         $set: { 
           started: setStarted,
-          startedAt: new Date(),
-          didUnmount: false 
+          startedAt: new Date()
         } 
       });
     }
