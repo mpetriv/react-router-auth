@@ -9,7 +9,7 @@ if (Meteor.isServer) {
   // Only publish timers that belong to the current user
   Meteor.publish('timers', function timersPublication() {
     return Timers.find({ owner: this.userId });
-  });
+  });  
 }
 
 Meteor.methods({
