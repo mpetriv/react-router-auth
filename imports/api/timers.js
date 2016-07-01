@@ -35,6 +35,12 @@ Meteor.methods({
   'timer.remove'(timerId) {
     check(timerId, String);
 
+    const timer = Timers.findOne(timerId);
+
+    if (timer.owner !== this.userId) {
+      throw new Meteor.Error('no permission');
+    }
+
     Timers.remove(timerId);
   },
 
@@ -54,6 +60,12 @@ Meteor.methods({
   'timer.setStarted'(timerId, setStarted, seconds) {
     check(timerId, String);
     check(setStarted, Boolean);
+
+    const timer = Timers.findOne(timerId);
+
+    if (timer.owner !== this.userId) {
+      throw new Meteor.Error('no permission');
+    }
 
     if(!setStarted){
       Timers.update(timerId, { 
