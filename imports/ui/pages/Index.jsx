@@ -1,3 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export const Index = () => <h3>Index Page</h3>;
+export default class Index extends Component {
+	render() {
+		return <h3>Index Page</h3>
+	}
+}

@@ -5,18 +5,18 @@ import { Link } from 'react-router';
 
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Navigation } from '../components/Navigation.jsx';
+import { Navigation } from '../components/navigation/Navigation.jsx';
 
 class AuthContainer extends Component {
 
   componentWillMount() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUserId) {
       browserHistory.push('/signin');
     }
   }
 
   componentDidUpdate() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUserId) {
       browserHistory.push('/signin');
     }
   }
@@ -35,6 +35,6 @@ class AuthContainer extends Component {
 
 export default createContainer(() => {
   return {    
-    currentUser: Meteor.user()
+    currentUserId: Meteor.userId()
   };
 }, AuthContainer);

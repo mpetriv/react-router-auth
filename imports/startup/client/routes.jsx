@@ -5,12 +5,10 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { App } from '../../ui/layouts/App.jsx';
 import AuthContainer from '../../ui/layouts/AuthContainer.jsx';
 
-import { Index } from '../../ui/pages/Index.jsx';
-import { About } from '../../ui/pages/About.jsx';
+import Index from '../../ui/pages/Index.jsx';
+import TimerDemo from '../../ui/pages/TimerDemo.jsx';
 import SignIn from '../../ui/pages/SignIn.jsx';
-import { Admin } from '../../ui/pages/Admin.jsx';
-import { Profile } from '../../ui/pages/Profile.jsx';
-import { NotFound } from '../../ui/pages/NotFound.jsx';
+import NotFound from '../../ui/pages/NotFound.jsx';
 
 Meteor.startup( () => {
   render(
@@ -18,14 +16,12 @@ Meteor.startup( () => {
     <Router history={ browserHistory }>
       
       <Route path="/" component={ App }>
-        <IndexRoute component={ Index } />
-        <Route path="/about" component={ About } />
+        <IndexRoute component={ Index } />        
         <Route path="/signin" component={ SignIn } />
       </Route>
       
-      <Route path="/admin" component={ AuthContainer }>
-        <IndexRoute component={ Admin } />
-        <Route path="profile" component={ Profile } />
+      <Route path="/" component={ AuthContainer }>
+        <Route path="/timerDemo" component={ TimerDemo } />
       </Route>
       
       <Route path="*" component={ NotFound } />
