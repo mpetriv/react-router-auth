@@ -60,7 +60,7 @@ export default createContainer(() => {
   Meteor.subscribe('timers');
 
   return {
-    timers: Timers.find({}, { sort: { createdAt: -1 } }).fetch(),
+    timers: Timers.find({}, { sort: { desc: 1 } }).fetch(),
     currentUser: Meteor.user(),
   };
 }, TimersList);
