@@ -7,24 +7,17 @@ export default class Timer extends Component {
     this.difference = 0;
     if(this.props.timer.started){
       this.difference = Math.round((moment() - moment(this.props.timer.startedAt))/1000);
-    }        
-    this.state = {
-      secondsElapsed: this.props.timer.secondsElapsed + this.difference,
-    };
+    }
   }
 
   componentDidMount() {
     if(this.props.timer.started){
       this.interval = setInterval(this.tick.bind(this), 1000);
-    }   
+    }
   }
 
-  tick() {
-    this.setState({secondsElapsed: this.state.secondsElapsed + 1});
-  }
-
-  componentWillUnmount() {    
-    clearInterval(this.interval);
+  componentWillUnmount() {
+      clearInterval(this.interval);
   }
     
   toggleStarted() {
@@ -33,12 +26,12 @@ export default class Timer extends Component {
     }else{
       clearInterval(this.interval);
     }
-    Meteor.call('timer.setStarted', this.props.timer._id, !this.props.timer.started, this.state.secondsElapsed);
+    Meteor.call('timer.setStarted', this.props.timer._id, !this.props.timer.started, this.state.seconds);
   }
 
   deleteTimer() {
     Meteor.call('timer.remove', this.props.timer._id);
-  }  
+  }
 
   secondsToTime(sec_num) {    
     let hours   = Math.floor(sec_num / 3600);
@@ -54,23 +47,26 @@ export default class Timer extends Component {
     if(seconds < 10){
       seconds = `0${seconds}`;
     }
-
     return `${hours}:${minutes}:${seconds}`;
   }  
 
   render() {
-    return (      
-      <li className='timer-el'>        
-        <button className="delete" onClick={this.deleteTimer.bind(this)}>
-          &times;
-        </button>
-        <button className='delete' onClick={this.toggleStarted.bind(this)}>
-          {this.props.timer.started ? 'stop' : 'start'}
-        </button>
-        <span className='text'>
-          <strong>{this.props.timer.desc}</strong>: {this.secondsToTime(this.state.secondsElapsed)}
-        </span>
-      </li>
+    return (
+      <tr>
+        <td>{this.props.timer.desc}</td>
+        <td>{this.props.timer.type}</td>
+        <td>{this.secondsToTime(this.state.seconds)}</td>
+        <td>
+          <button className="w3-btn w3-dark-grey" onClick={this.toggleStarted.bind(this)}>
+            {this.props.timer.started ? 'stop' : 'start'}
+          </button>
+        </td>
+        <td>
+          <button className="w3-btn w3-red" onClick={this.deleteTimer.bind(this)}>
+             &times;
+          </button>
+        </td>
+      </tr>
     );
   }
 

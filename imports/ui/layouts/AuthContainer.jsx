@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Navigation } from '../components/navigation/Navigation.jsx';
+import Navigation from '../components/navigation/Navigation.jsx';
 
 class AuthContainer extends Component {
 
@@ -25,7 +25,7 @@ class AuthContainer extends Component {
     return (
       <div>
         <Navigation />
-        <div className="pageContainer">
+        <div className="w3-container">
           {this.props.children}
         </div>
       </div>

@@ -8,22 +8,28 @@ if (Meteor.isServer) {
   // Only publish timers that belong to the current user
   Meteor.publish('timers', function timersPublication() {
     return Timers.find({ owner: this.userId });
-  });  
+  });
 }
 
 Meteor.methods({
-  'timers.insert'(text) {
-    check(text, String);
+  'timers.insert'(description, timerType) {
+    check(description, String);
+    check(timerType, String);
 
     if (! this.userId) {
       throw new Meteor.Error('not-authorized');
     }
+    let timerSeconds = 0;
+    if(timerType === 'countdown'){
+      timerSeconds = 30;
+    }
 
     Timers.insert({
-      desc: text,
+      desc: description,
       createdAt: new Date(),
       owner: this.userId,
-      secondsElapsed: 0,
+      type: timerType,
+      seconds: timerSeconds,
       started: false,
       startedAt: new Date()
     });
@@ -41,10 +47,10 @@ Meteor.methods({
     Timers.remove(timerId);
   },
 
-  'timer.setStarted'(timerId, setStarted, seconds) {
+  'timer.setStarted'(timerId, setStarted, secs) {
     check(timerId, String);
     check(setStarted, Boolean);
-    check(seconds, Number);
+    check(secs, Number);
 
     const timer = Timers.findOne(timerId);
 
@@ -56,7 +62,7 @@ Meteor.methods({
       Timers.update(timerId, { 
         $set: { 
           started: setStarted,
-          secondsElapsed: seconds
+          seconds: secs
         } 
       }); 
     }else{
